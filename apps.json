@@ -3,7 +3,7 @@
     "name": "LocalSQL - 跨平台数据库管理工具",
     "category": "数据库",
     "icon": "✦",
-    "description": "数据库管理工具",
+    "description": "像 Navicat 一样管理 MySQL、PostgreSQL、SQLite 和 SQL Server，支持 SSH 隧道、数据导入导出、ER 图、定时任务与备份恢复。",
     "tags": [
       "工具",
       "开源",
