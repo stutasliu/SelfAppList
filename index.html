@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="一个简洁、可定制的应用列表网站。" />
+  <title>我的应用列表</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>应用列表</span>
+      </a>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换深色模式">
+        <span class="theme-icon theme-icon-light">☀️</span>
+        <span class="theme-icon theme-icon-dark">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">APP DIRECTORY</p>
+        <h1>发现好用的应用</h1>
+        <p class="hero-subtitle">一个轻量、开源的静态应用导航站。你可以搜索、筛选，也可以直接编辑数据文件来更新列表。</p>
+        <div class="search-box">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input id="search-input" type="search" placeholder="搜索应用名称、描述或标签…" autocomplete="off" />
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog container">
+      <div class="toolbar">
+        <div class="filter-tabs" id="filter-tabs" role="tablist" aria-label="按分类筛选">
+          <button class="filter-tab active" type="button" data-category="all">全部</button>
+        </div>
+        <span class="result-count" id="result-count"></span>
+      </div>
+
+      <div class="app-grid" id="app-grid" aria-live="polite"></div>
+
+      <div class="empty-state" id="empty-state" hidden>
+        <div class="empty-icon" aria-hidden="true">🗂️</div>
+        <h2>没有找到相关应用</h2>
+        <p>换个关键词或分类试试看。</p>
+        <button class="reset-button" id="reset-filters" type="button">清空筛选</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Powered by GitHub Pages · 点击卡片可打开应用</p>
+      <p>更新列表请编辑 <code>apps.js</code></p>
+    </div>
+  </footer>
+
+  <script src="apps.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
