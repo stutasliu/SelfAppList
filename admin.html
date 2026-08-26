@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>应用管理后台</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container header-inner">
+      <div class="header-title">
+        <span class="brand-mark" aria-hidden="true">⚙️</span>
+        <div>
+          <h1>应用管理后台</h1>
+          <p>添加应用的 GitHub Pages 地址，自动生成列表项并发布到主站。</p>
+        </div>
+      </div>
+      <a class="back-link" href="index.html">返回主站</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="token-panel">
+      <div class="panel-heading">
+        <h2>GitHub 访问令牌</h2>
+        <span class="muted">保存后，修改才能写回仓库并触发 Pages 构建</span>
+      </div>
+      <div class="token-row">
+        <input id="token-input" type="password" placeholder="粘贴 GitHub Personal Access Token" autocomplete="off" />
+        <button id="save-token" class="button secondary" type="button">保存令牌</button>
+        <button id="clear-token" class="button ghost" type="button">清除</button>
+      </div>
+      <p class="token-hint">令牌只保存在当前浏览器的本地存储中，不会写入仓库。建议使用拥有 <code>repo</code> 权限的令牌。</p>
+    </section>
+
+    <div class="admin-layout">
+      <section class="editor-panel panel">
+        <div class="panel-heading">
+          <h2 id="form-title">添加应用</h2>
+          <span class="muted" id="form-mode">新应用</span>
+        </div>
+
+        <div class="field">
+          <label for="app-url">GitHub Pages 地址</label>
+          <div class="url-row">
+            <input id="app-url" type="url" placeholder="https://username.github.io/repo/" />
+            <button id="fetch-meta" class="button secondary" type="button">获取信息</button>
+          </div>
+          <small id="url-message" class="field-message"></small>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="app-name">应用名称</label>
+            <input id="app-name" type="text" placeholder="应用名称" />
+          </div>
+          <div class="field">
+            <label for="app-category">分类</label>
+            <input id="app-category" type="text" list="category-options" placeholder="例如：效率工具" />
+            <datalist id="category-options"></datalist>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="app-description">应用简介</label>
+          <textarea id="app-description" rows="3" placeholder="一句话介绍这个应用"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="app-tags">标签</label>
+          <input id="app-tags" type="text" placeholder="多个标签用逗号分隔，例如：工具, 开源" />
+        </div>
+
+        <div class="field">
+          <label for="app-icon">图标</label>
+          <div class="icon-row">
+            <div class="icon-preview" id="icon-preview">✦</div>
+            <input id="app-icon" type="text" placeholder="Emoji 或图片 URL" />
+          </div>
+          <small class="field-message">可以直接填 Emoji，也可以填图标图片的完整地址。</small>
+        </div>
+
+        <div class="form-actions">
+          <button id="save-app" class="button primary" type="button">保存应用</button>
+          <button id="cancel-edit" class="button ghost" type="button" hidden>取消编辑</button>
+        </div>
+      </section>
+
+      <section class="list-panel panel">
+        <div class="panel-heading">
+          <h2>现有应用</h2>
+          <span class="muted" id="app-count"></span>
+        </div>
+        <div id="app-list" class="app-list"></div>
+      </section>
+    </div>
+
+    <section class="publish-panel panel">
+      <div>
+        <h2>发布到主站</h2>
+        <p class="muted">保存后，GitHub Pages 通常会在几分钟内自动重新构建。</p>
+      </div>
+      <button id="publish" class="button primary large" type="button">保存全部并发布</button>
+    </section>
+
+    <p id="status" class="status" role="status"></p>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,5 +1,4 @@
-(function () {
-  const data = window.APP_DATA || [];
+(async function () {
   const grid = document.getElementById("app-grid");
   const filterTabs = document.getElementById("filter-tabs");
   const resultCount = document.getElementById("result-count");
@@ -8,8 +7,30 @@
   const resetButton = document.getElementById("reset-filters");
   const themeToggle = document.getElementById("theme-toggle");
 
+  let data = [];
   let activeCategory = "all";
   let keyword = "";
+
+  async function loadApps() {
+    try {
+      const response = await fetch("apps.json");
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      data = await response.json();
+    } catch (error) {
+      console.error("加载应用列表失败：", error);
+      emptyState.hidden = false;
+      resultCount.textContent = "共 0 个应用";
+      grid.innerHTML = "";
+      const emptyTitle = emptyState.querySelector("h2");
+      const emptyText = emptyState.querySelector("p");
+      emptyTitle.textContent = "应用列表加载失败";
+      emptyText.textContent = "请确认 apps.json 已正确发布。";
+      resetButton.hidden = true;
+      return;
+    }
+  }
 
   function buildCategories() {
     const categories = [...new Set(data.map((app) => app.category))].sort();
@@ -125,6 +146,11 @@
     if (savedTheme === "dark") {
       document.body.classList.add("dark");
     }
+  }
+
+  await loadApps();
+  if (!data.length) {
+    return;
   }
 
   initTheme();
