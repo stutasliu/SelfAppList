@@ -320,8 +320,8 @@
       };
 
       const title =
-        meta(['meta[property="og:site_name"]']) ||
         meta(['meta[property="og:title"]', 'meta[name="twitter:title"]']) ||
+        meta(['meta[property="og:site_name"]']) ||
         (doc.title || "").trim();
 
       const description =
