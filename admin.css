@@ -55,6 +55,10 @@ body {
   background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 48%, #312e81 100%);
 }
 
+.login-overlay[hidden] {
+  display: none;
+}
+
 .login-orb {
   position: absolute;
   border-radius: 50%;
