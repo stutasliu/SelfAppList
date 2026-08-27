@@ -13,6 +13,7 @@
     loginUsername: document.getElementById("login-username"),
     loginPassword: document.getElementById("login-password"),
     loginError: document.getElementById("login-error"),
+    togglePassword: document.getElementById("toggle-password"),
     adminHeader: document.getElementById("admin-header"),
     adminMain: document.getElementById("admin-main"),
     logoutButton: document.getElementById("logout-button"),
@@ -502,6 +503,11 @@
   function bindEvents() {
     elements.loginForm.addEventListener("submit", handleLogin);
     elements.logoutButton.addEventListener("click", handleLogout);
+    elements.togglePassword.addEventListener("click", () => {
+      const isPassword = elements.loginPassword.type === "password";
+      elements.loginPassword.type = isPassword ? "text" : "password";
+      elements.togglePassword.textContent = isPassword ? "🙈" : "👁️";
+    });
     elements.saveToken.addEventListener("click", saveToken);
     elements.clearToken.addEventListener("click", clearToken);
     elements.fetchMeta.addEventListener("click", fetchMetadata);
