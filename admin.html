@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <title>应用管理后台</title>
   <link rel="stylesheet" href="admin.css?v=20260827" />
 </head>
@@ -156,6 +158,27 @@
     <p id="status" class="status" role="status"></p>
   </main>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var loginForm = document.getElementById("login-form");
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var username = document.getElementById("login-username").value.trim();
+        var password = document.getElementById("login-password").value.trim();
+        if (username === "admin" && password === "lyj0514") {
+          sessionStorage.setItem("selfapplist_admin_auth", "1");
+          document.getElementById("login-overlay").hidden = true;
+          document.getElementById("admin-header").hidden = false;
+          document.getElementById("admin-main").hidden = false;
+          if (typeof window.__showAdmin === "function") {
+            window.__showAdmin();
+          }
+        } else {
+          document.getElementById("login-error").textContent = "账号或密码错误，请重试。";
+        }
+      });
+    });
+  </script>
   <script src="admin.js?v=20260827"></script>
 </body>
 </html>

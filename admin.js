@@ -67,6 +67,8 @@
     }
   }
 
+  window.__showAdmin = showAdmin;
+
   function handleLogin(event) {
     event.preventDefault();
     const username = elements.loginUsername.value.trim();
