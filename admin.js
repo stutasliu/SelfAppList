@@ -3,8 +3,19 @@
   const REPO_NAME = "SelfAppList";
   const DATA_PATH = "apps.json";
   const TOKEN_KEY = "selfapplist_gh_token";
+  const AUTH_KEY = "selfapplist_admin_auth";
+  const ADMIN_USERNAME = "admin";
+  const ADMIN_PASSWORD_HASH = "b1ae3343bad87a0e73defbca416629c1f8775f660dfa1eb75bd5a6a9dc09361e";
 
   const elements = {
+    loginOverlay: document.getElementById("login-overlay"),
+    loginForm: document.getElementById("login-form"),
+    loginUsername: document.getElementById("login-username"),
+    loginPassword: document.getElementById("login-password"),
+    loginError: document.getElementById("login-error"),
+    adminHeader: document.getElementById("admin-header"),
+    adminMain: document.getElementById("admin-main"),
+    logoutButton: document.getElementById("logout-button"),
     tokenInput: document.getElementById("token-input"),
     saveToken: document.getElementById("save-token"),
     clearToken: document.getElementById("clear-token"),
@@ -30,6 +41,61 @@
 
   let apps = [];
   let editingIndex = null;
+  let appsLoaded = false;
+
+  async function sha256(text) {
+    const data = new TextEncoder().encode(text);
+    const digest = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(digest))
+      .map((byte) => byte.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  function isLoggedIn() {
+    return sessionStorage.getItem(AUTH_KEY) === "1";
+  }
+
+  function showLogin() {
+    elements.loginOverlay.hidden = false;
+    elements.adminHeader.hidden = true;
+    elements.adminMain.hidden = true;
+    elements.loginError.textContent = "";
+    elements.loginUsername.focus();
+  }
+
+  function showAdmin() {
+    elements.loginOverlay.hidden = true;
+    elements.adminHeader.hidden = false;
+    elements.adminMain.hidden = false;
+    elements.loginPassword.value = "";
+    if (!appsLoaded) {
+      appsLoaded = true;
+      loadApps();
+    }
+  }
+
+  async function handleLogin(event) {
+    event.preventDefault();
+    const username = elements.loginUsername.value.trim();
+    const password = elements.loginPassword.value;
+    const passwordHash = await sha256(password);
+
+    if (username === ADMIN_USERNAME && passwordHash === ADMIN_PASSWORD_HASH) {
+      sessionStorage.setItem(AUTH_KEY, "1");
+      elements.loginError.textContent = "";
+      showAdmin();
+    } else {
+      elements.loginError.textContent = "账号或密码错误，请重试。";
+      elements.loginPassword.select();
+    }
+  }
+
+  function handleLogout() {
+    sessionStorage.removeItem(AUTH_KEY);
+    elements.loginUsername.value = "";
+    elements.loginPassword.value = "";
+    showLogin();
+  }
 
   function getToken() {
     return localStorage.getItem(TOKEN_KEY) || "";
@@ -434,6 +500,8 @@
   }
 
   function bindEvents() {
+    elements.loginForm.addEventListener("submit", handleLogin);
+    elements.logoutButton.addEventListener("click", handleLogout);
     elements.saveToken.addEventListener("click", saveToken);
     elements.clearToken.addEventListener("click", clearToken);
     elements.fetchMeta.addEventListener("click", fetchMetadata);
@@ -450,5 +518,9 @@
   }
 
   bindEvents();
-  loadApps();
+  if (isLoggedIn()) {
+    showAdmin();
+  } else {
+    showLogin();
+  }
 })();

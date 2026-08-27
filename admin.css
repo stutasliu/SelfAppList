@@ -34,12 +34,83 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.18), transparent 35%),
+    radial-gradient(circle at 85% 75%, rgba(139, 92, 246, 0.16), transparent 38%),
+    var(--bg);
+}
+
+.login-card {
+  width: min(390px, 100%);
+  padding: 34px 30px 30px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.login-logo {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  color: white;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  border-radius: 18px;
+  font-size: 30px;
+}
+
+.login-card h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.login-subtitle {
+  margin: 8px 0 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.login-card .field {
+  text-align: left;
+}
+
+.login-error {
+  min-height: 20px;
+  margin: 10px 0 0;
+  color: var(--danger);
+  font-size: 13px;
+  text-align: left;
+}
+
+.login-submit {
+  width: 100%;
+  margin-top: 18px;
+}
+
 .header-inner {
   min-height: 88px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
 }
 
 .header-title {

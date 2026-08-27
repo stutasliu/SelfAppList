@@ -7,7 +7,25 @@
   <link rel="stylesheet" href="admin.css" />
 </head>
 <body>
-  <header class="admin-header">
+  <div class="login-overlay" id="login-overlay">
+    <form class="login-card" id="login-form">
+      <div class="login-logo" aria-hidden="true">🔐</div>
+      <h2>登录管理后台</h2>
+      <p class="login-subtitle">请输入管理员账号和密码</p>
+      <div class="field">
+        <label for="login-username">账号</label>
+        <input id="login-username" type="text" autocomplete="username" placeholder="admin" />
+      </div>
+      <div class="field">
+        <label for="login-password">密码</label>
+        <input id="login-password" type="password" autocomplete="current-password" placeholder="请输入密码" />
+      </div>
+      <p class="login-error" id="login-error" role="alert"></p>
+      <button class="button primary login-submit" type="submit">登录</button>
+    </form>
+  </div>
+
+  <header class="admin-header" id="admin-header" hidden>
     <div class="container header-inner">
       <div class="header-title">
         <span class="brand-mark" aria-hidden="true">⚙️</span>
@@ -16,11 +34,14 @@
           <p>添加应用的 GitHub Pages 地址，自动生成列表项并发布到主站。</p>
         </div>
       </div>
-      <a class="back-link" href="index.html">返回主站</a>
+      <div class="header-actions">
+        <button id="logout-button" class="button ghost" type="button">退出登录</button>
+        <a class="back-link" href="index.html">返回主站</a>
+      </div>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="admin-main" hidden>
     <section class="token-panel">
       <div class="panel-heading">
         <h2>GitHub 访问令牌</h2>
