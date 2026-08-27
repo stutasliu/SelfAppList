@@ -5,7 +5,7 @@
   const TOKEN_KEY = "selfapplist_gh_token";
   const AUTH_KEY = "selfapplist_admin_auth";
   const ADMIN_USERNAME = "admin";
-  const ADMIN_PASSWORD_HASH = "b1ae3343bad87a0e73defbca416629c1f8775f660dfa1eb75bd5a6a9dc09361e";
+  const ADMIN_PASSWORD = "lyj0514";
 
   const elements = {
     loginOverlay: document.getElementById("login-overlay"),
@@ -44,14 +44,6 @@
   let editingIndex = null;
   let appsLoaded = false;
 
-  async function sha256(text) {
-    const data = new TextEncoder().encode(text);
-    const digest = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(digest))
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-  }
-
   function isLoggedIn() {
     return sessionStorage.getItem(AUTH_KEY) === "1";
   }
@@ -75,13 +67,12 @@
     }
   }
 
-  async function handleLogin(event) {
+  function handleLogin(event) {
     event.preventDefault();
     const username = elements.loginUsername.value.trim();
-    const password = elements.loginPassword.value;
-    const passwordHash = await sha256(password);
+    const password = elements.loginPassword.value.trim();
 
-    if (username === ADMIN_USERNAME && passwordHash === ADMIN_PASSWORD_HASH) {
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       sessionStorage.setItem(AUTH_KEY, "1");
       elements.loginError.textContent = "";
       showAdmin();
