@@ -4,12 +4,9 @@
   const DATA_PATH = "apps.json";
   const TOKEN_KEY = "selfapplist_gh_token";
   const AUTH_KEY = "selfapplist_admin_auth";
-  const ADMIN_USERNAME = "admin";
-  const ADMIN_PASSWORD = "lyj0514";
 
   const elements = {
     loginOverlay: document.getElementById("login-overlay"),
-    loginForm: document.getElementById("login-form"),
     loginUsername: document.getElementById("login-username"),
     loginPassword: document.getElementById("login-password"),
     loginError: document.getElementById("login-error"),
@@ -68,21 +65,6 @@
   }
 
   window.__showAdmin = showAdmin;
-
-  function handleLogin(event) {
-    event.preventDefault();
-    const username = elements.loginUsername.value.trim();
-    const password = elements.loginPassword.value.trim();
-
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-      sessionStorage.setItem(AUTH_KEY, "1");
-      elements.loginError.textContent = "";
-      showAdmin();
-    } else {
-      elements.loginError.textContent = "账号或密码错误，请重试。";
-      elements.loginPassword.select();
-    }
-  }
 
   function handleLogout() {
     sessionStorage.removeItem(AUTH_KEY);
@@ -494,7 +476,6 @@
   }
 
   function bindEvents() {
-    elements.loginForm.addEventListener("submit", handleLogin);
     elements.logoutButton.addEventListener("click", handleLogout);
     elements.togglePassword.addEventListener("click", () => {
       const isPassword = elements.loginPassword.type === "password";
