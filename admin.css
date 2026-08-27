@@ -130,6 +130,7 @@ body {
 
 .input-icon {
   position: absolute;
+  top: 50%;
   left: 15px;
   display: grid;
   place-items: center;
@@ -137,6 +138,8 @@ body {
   height: 20px;
   color: #94a3b8;
   pointer-events: none;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 .input-icon svg {
@@ -157,6 +160,14 @@ body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
+.input-shell input[type="password"] {
+  padding-right: 54px;
+}
+
+.input-shell input::-ms-reveal {
+  display: none;
+}
+
 .input-shell input:focus {
   border-color: var(--primary);
   background: #fff;
@@ -165,6 +176,7 @@ body {
 
 .password-toggle {
   position: absolute;
+  top: 50%;
   right: 10px;
   width: 34px;
   height: 34px;
@@ -174,6 +186,8 @@ body {
   cursor: pointer;
   font-size: 16px;
   opacity: 0.65;
+  transform: translateY(-50%);
+  z-index: 3;
 }
 
 .password-toggle:hover {
