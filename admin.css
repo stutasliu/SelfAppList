@@ -147,7 +147,7 @@ body {
   height: 20px;
 }
 
-.input-shell input {
+.login-card .input-shell input {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -162,15 +162,15 @@ body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.input-shell input[type="password"] {
+.login-card .input-shell input[type="password"] {
   padding-right: 54px;
 }
 
-.input-shell input::-ms-reveal {
+.login-card .input-shell input::-ms-reveal {
   display: none;
 }
 
-.input-shell input:focus {
+.login-card .input-shell input:focus {
   border-color: var(--primary);
   background: #fff;
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
